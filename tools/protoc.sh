@@ -11,21 +11,29 @@ APP_NAME="znly/protoc:0.4.0"
 bindfs_start
 pull_image
 
-mkdir -p src/js/proto
-mkdir -p src/go/proto
+PROTOC_SRC=./proto/hello.proto
+PROTOC_INC=./proto
+
+PROTOC_GO=./src/go/proto
+PROTOC_JS=./client/src/proto
+PROTOC_DOC=./client/src/proto
+
+mkdir -p $PROTOC_JS
+mkdir -p $PROTOC_GO
+mkdir -p $PROTOC_DOC
 
 echo "Running $APP_NAME"
 docker run --rm -v $VOL_TARGET:$(pwd) -w $(pwd) $APP_NAME \
-	-I ./proto \
-	--go_out=plugins=grpc:./src/go/proto \
-	--js_out=import_style=commonjs,binary:./src/js/proto \
-	--grpc-web_out=import_style=commonjs,mode=grpcweb:./src/js/proto \
-	--doc_out=markdown,proto.md:./ \
-	proto/hello.proto 
+	-I $PROTOC_INC \
+	--go_out=plugins=grpc:$PROTOC_GO \
+	--js_out=import_style=commonjs,binary:$PROTOC_JS \
+	--grpc-web_out=import_style=commonjs,mode=grpcweb:$PROTOC_JS \
+	--doc_out=markdown,proto.md:$PROTOC_DOC \
+	$PROTOC_SRC
 
 bindfs_finish
 
 # MarkdownにHTMLタグが混ざるのが気持ち悪いので除去
-cat proto.md | perl -nE 's#<(?:a|p) (?:.+)>##g; print' > proto.new.md
-mv proto.new.md proto.md
+cat $PROTOC_DOC/proto.md | perl -nE 's#<(?:a|p) (?:.+)>##g; print' > $PROTOC_DOC/proto.new.md
+mv $PROTOC_DOC/proto.new.md $PROTOC_DOC/proto.md
 
