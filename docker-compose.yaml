@@ -11,7 +11,7 @@ services:
       - ./etc/nginx/keys:/etc/nginx/keys:ro
       - ./etc/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./etc/nginx/common:/etc/nginx/common:ro
-      - ./dist/public:/public:ro
+      - ./var:/opt/var:ro
 
     # https://github.com/docker/for-linux/issues/264#issuecomment-385698947
     command:

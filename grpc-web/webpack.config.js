@@ -7,7 +7,7 @@ module.exports = {
 	mode: mode,
 	entry: "./src/grpc.js",
 	output: {
-		path: path.resolve(__dirname, "../dist/static"),
+		path: path.resolve(__dirname, "../var/dist/public/static"),
 		filename: "grpc.js",
 	},
 	module: {

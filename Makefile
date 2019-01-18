@@ -7,10 +7,10 @@ NODE_ENV=$(shell if [ -z "$$NODE_ENV" ]; then echo "development"; else echo $$NO
 .PHONY: all init
 
 all: src/go/proto/hello.pb.go \
-	dist/bin/server \
-	dist/bin/client \
-	dist/public/client \
-	dist/static/grpc.js
+	var/dist/bin/server \
+	var/dist/bin/client \
+	var/dist/public \
+	var/dist/public/static/grpc.js
 
 init:
 	go get -v \
@@ -19,22 +19,21 @@ init:
 
 	cd client && yarn install
 
-dist/static/grpc.js: $(FILES_GRPC_WEB) proto/hello.proto
-	echo ${NODE_ENV}
-	NODE_ENV=${NODE_ENV} cd grpc-web && yarn webpack-cli
-
 src/go/proto/hello.pb.go: proto/hello.proto
 	tools/protoc.sh
 
-dist/bin/server: src/go/server/main.go
+var/dist/bin/server: src/go/server/main.go
 	go build -o $@ src/go/server/main.go
 
-dist/bin/client: src/go/client/main.go
+var/dist/bin/client: src/go/client/main.go
 	go build -o $@ src/go/client/main.go
 
-dist/public/client: $(FILES_CLIENT)
+var/dist/public: $(FILES_CLIENT)
 	cd client && yarn build --mode ${NODE_ENV} --dest ../$@
 
+var/dist/public/static/grpc.js: $(FILES_GRPC_WEB) proto/hello.proto
+	NODE_ENV=${NODE_ENV} cd grpc-web && yarn webpack-cli
+
 clean:
-	rm -rf dist
+	rm -rf var/dist
 

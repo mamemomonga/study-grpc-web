@@ -12,9 +12,24 @@ import { HelloRequest, HelloResponse } from "./proto/hello_pb"
 	var MyExternalJS = function() {
 	};
 	MyExternalJS.prototype={
-		hello: function() {
-			alert('hello');
-		}
+		hello: function(msg) {
+			return new Promise((resolve,reject)=> {
+				console.log('grpc:' + msg);
+
+				var client = new HelloServiceClient("https://uvm1:8080", {}, {});
+				var req = new HelloRequest();
+				req.setName(msg);
+				client.hello(req, {}, (err, ret) => {
+					console.log(ret);
+					var resp=ret.getMessage();
+					console.log("RESP:"+resp);
+					resolve(resp)
+				})
+			})
+		},
+		start: function() {
+			console.log("START");
+		},
 	};
 	window['MyExternalJS']=MyExternalJS
 })();
