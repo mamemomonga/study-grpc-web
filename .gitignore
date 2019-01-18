@@ -1,4 +1,4 @@
-/client/src/proto
+/grpc-web/src/proto
 /src/go/proto
 /etc/nginx/keys
 /dist
