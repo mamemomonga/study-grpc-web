@@ -2,6 +2,10 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.5",
     "google-protobuf": "^3.6.1",
     "grpc-web": "^1.0.3",
     "uglifyjs-webpack-plugin": "^2.1.1",

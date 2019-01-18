@@ -1,4 +1,4 @@
-// ES5 externaljs.js
+// externaljs.js
 'use strict';
 
 import { HelloServiceClient } from "./proto/hello_grpc_web_pb"
@@ -9,19 +9,19 @@ import { HelloRequest, HelloResponse } from "./proto/hello_pb"
 // var HelloRequest = hello_pb.HelloRequest
 
 (function() {
-	var MyExternalJS = function() {
+	const MyExternalJS = function() {
 	};
 	MyExternalJS.prototype={
 		hello: function(msg) {
 			return new Promise((resolve,reject)=> {
 				console.log('grpc:' + msg);
 
-				var client = new HelloServiceClient("https://uvm1:8080", {}, {});
-				var req = new HelloRequest();
+				const client = new HelloServiceClient("https://uvm1:8080", {}, {});
+				const req = new HelloRequest();
 				req.setName(msg);
 				client.hello(req, {}, (err, ret) => {
 					console.log(ret);
-					var resp=ret.getMessage();
+					const resp=ret.getMessage();
 					console.log("RESP:"+resp);
 					resolve(resp)
 				})
