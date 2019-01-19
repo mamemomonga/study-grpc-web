@@ -31,8 +31,6 @@ docker run --rm -v $VOL_TARGET:$(pwd) -w $(pwd) $APP_NAME \
 	--doc_out=markdown,proto.md:$PROTOC_DOC \
 	$PROTOC_SRC
 
-mv proto/proto.md proto/README.md
-
 bindfs_finish
 
 # MarkdownにHTMLタグが混ざるのが気持ち悪いので除去
