@@ -11,6 +11,8 @@
 
 <script>
 
+// import { mjs } from '../grpc.js'
+
 const mj = new window.MyExternalJS()
 mj.start()
 

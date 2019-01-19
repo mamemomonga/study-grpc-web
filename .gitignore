@@ -1,5 +1,7 @@
-/grpc-web/src/proto
+/api/src/proto
 /src/go/proto
 /etc/nginx/keys
 /var
 *.swp
+/node_modules
+/yarn-error.log

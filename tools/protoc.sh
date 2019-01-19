@@ -15,7 +15,7 @@ PROTOC_SRC=./proto/hello.proto
 PROTOC_INC=./proto
 
 PROTOC_GO=./src/go/proto
-PROTOC_JS=./grpc-web/src/proto
+PROTOC_JS=./api/src/proto
 PROTOC_DOC=./proto
 
 mkdir -p $PROTOC_JS
