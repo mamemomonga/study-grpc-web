@@ -1,5 +1,5 @@
 /api/src/proto
-/src/go/proto
+/go/proto
 /etc/nginx/keys
 /var
 *.swp
