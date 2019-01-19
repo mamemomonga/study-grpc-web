@@ -14,7 +14,7 @@ pull_image
 PROTOC_SRC=./proto/hello.proto
 PROTOC_INC=./proto
 
-PROTOC_GO=./src/go/proto
+PROTOC_GO=./go/proto
 PROTOC_JS=./api/src/proto
 PROTOC_DOC=./proto
 
@@ -30,6 +30,8 @@ docker run --rm -v $VOL_TARGET:$(pwd) -w $(pwd) $APP_NAME \
 	--grpc-web_out=import_style=commonjs,mode=grpcweb:$PROTOC_JS \
 	--doc_out=markdown,proto.md:$PROTOC_DOC \
 	$PROTOC_SRC
+
+mv proto/proto.md proto/README.md
 
 bindfs_finish
 

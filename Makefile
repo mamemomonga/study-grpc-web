@@ -1,4 +1,7 @@
 .PHONY:
 
 build:
-	yarn gulp
+	yarn gulp build
+
+serve:
+	yarn gulp serve

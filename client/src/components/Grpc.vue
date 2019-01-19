@@ -11,11 +11,6 @@
 
 <script>
 
-// import { mjs } from '../grpc.js'
-
-const mj = new window.MyExternalJS()
-mj.start()
-
 export default {
 	name: 'Grpc',
 	data: function(){
@@ -26,9 +21,10 @@ export default {
 	},
 	methods: {
 		hello() {
-			mj.hello(this.name).then((ret)=>{
-				this.message = ret
-			})
+			const api=new window.gRPCWeb()
+			api.hello(this.name)
+			.then((resp)=>{ this.message=resp })
+			.catch((e)=>{ alert(`エラー: ${e}`) })
 		},
 	}
 }

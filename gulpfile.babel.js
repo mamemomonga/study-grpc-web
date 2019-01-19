@@ -29,14 +29,15 @@ task('api',series(()=>{
 },()=>{
 	return src('api/dist/api.js',{ base:'api/dist' })
 	.pipe(hash())
-	.pipe(dest('var/dist/js'))
-	.pipe(hash.manifest('api-mamifest.json'))
+	.pipe(dest('var/dist/public/js'))
+	.pipe(hash.manifest('api.mamifest.json'))
 	.pipe(dest('var'))
 },()=>{
 	return append_jstag({
-		manifest: './var/api-mamifest.json',
-		html: './client/dist/index.html',
-		path: '/static/'
+		manifest: './var/api.mamifest.json',
+		src:  './client/dist/index.html',
+		dest: './var/dist/public/index.html',
+		path: '/js/'
 	})
 }))
 
@@ -44,7 +45,7 @@ task('api',series(()=>{
 task('client',series(()=>{
 	return run(['yarn','run','build'],'client')
 },()=>{
-	return src([ 'client/dist/**' ],{ base:'client/dist' }).pipe(dest( 'var/dist' ))
+	return src([ 'client/dist/**' ],{ base:'client/dist' }).pipe(dest( 'var/dist/public' ))
 }))
 
 // cleanup
@@ -53,7 +54,7 @@ task('clean',(done)=>{
 })
 
 // build
-task('default',series('clean','protoc','go','client','api'))
+task('build',series('clean','protoc','go','client','api'))
 
 // serve
 task('serve',series(
